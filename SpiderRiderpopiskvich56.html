@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Колесо Фортуни - Daily Pass</title>
+    <!-- Telegram WebApp script for Mini App integration -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #0077b6, #023e8a); color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden;">
+    
+    <!-- Заголовок із анімацією появи -->
+    <h1 style="font-size: 2.5em; text-shadow: 0 2px 4px rgba(0,0,0,0.3); animation: fadeIn 1s ease-in;">
+        Колесо Фортуни
+    </h1>
+    
+    <!-- Колесо фортуни (SVG з фіксованою позицією та анімацією) -->
+    <svg width="220" height="220" viewBox="0 0 200 200" style="margin: 20px; position: relative;">
+        <!-- Основа колеса -->
+        <circle cx="100" cy="100" r="90" fill="#ffffff" stroke="#0077b6" stroke-width="4"/>
+        <!-- Сектори з очками -->
+        <path d="M100,100 L100,20 A80,80 0 0,1 165.6,44.7 Z" fill="#0077b6">
+            <text x="130" y="40" fill="white" font-size="12" font-weight="bold">10</text>
+        </path>
+        <path d="M100,100 L165.6,44.7 A80,80 0 0,1 165.6,155.3 Z" fill="#0096c7">
+            <text x="150" y="100" fill="white" font-size="12" font-weight="bold">50</text>
+        </path>
+        <path d="M100,100 L165.6,155.3 A80,80 0 0,1 100,180 Z" fill="#00b4d8">
+            <text x="130" y="160" fill="white" font-size="12" font-weight="bold">100</text>
+        </path>
+        <path d="M100,100 L100,180 A80,80 0 0,1 34.4,155.3 Z" fill="#48cae4">
+            <text x="70" y="160" fill="white" font-size="12" font-weight="bold">20</text>
+        </path>
+        <path d="M100,100 L34.4,155.3 A80,80 0 0,1 34.4,44.7 Z" fill="#90e0ef">
+            <text x="50" y="100" fill="white" font-size="12" font-weight="bold">30</text>
+        </path>
+        <path d="M100,100 L34.4,44.7 A80,80 0 0,1 100,20 Z" fill="#ade8f4">
+            <text x="70" y="40" fill="white" font-size="12" font-weight="bold">5</text>
+        </path>
+        <!-- Центральна точка -->
+        <circle cx="100" cy="100" r="12" fill="#023e8a"/>
+        <!-- Стрілка -->
+        <polygon points="100,20 90,40 110,40" fill="#ff4d6d" style="transform-origin: 100px 100px;">
+            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="2s" repeatCount="indefinite"/>
+        </polygon>
+        <!-- Анімація обертання колеса -->
+        <g>
+            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="3s" repeatCount="1" begin="spinButton.click"/>
+        </g>
+    </svg>
+    
+    <!-- Кнопка для "спіну" з анімацією пульсації -->
+    <button id="spinButton" onclick="(window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.showAlert : window.alert)('Ви отримали ' + Math.floor(Math.random() * 100 + 5) + ' очок!')" 
+            style="background: #0077b6; border: none; padding: 15px 30px; font-size: 1.2em; color: white; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); animation: pulse 2s infinite; margin: 10px;">
+        Крутити колесо!
+    </button>
+    
+    <!-- Кнопка Daily Pass з іконкою -->
+    <button onclick="(window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.showAlert : window.alert)('Daily Pass активовано! Отримайте бонусні очки!')" 
+            style="background: #00b4d8; border: none; padding: 15px 30px; font-size: 1.2em; color: white; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); animation: pulse 2s infinite; display: flex; align-items: center; gap: 10px;">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+            <path d="M12 2 L15 8 L22 9 L17 14 L18 21 L12 18 L6 21 L7 14 L2 9 L9 8 Z" fill="#ffffff">
+                <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+        </svg>
+        Daily Pass
+    </button>
+    
+    <!-- Опис із анімацією зміщення -->
+    <p style="margin-top: 20px; font-size: 1.1em; opacity: 0; animation: slideUp 1s ease-in forwards; animation-delay: 0.5s;">
+        Крути колесо та активуй Daily Pass!
+    </p>
+
+    <!-- Вбудовані стилі для анімацій -->
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</body>
+</html>
